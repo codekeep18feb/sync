@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using Random Color Package</title>
+    <script src="node_modules/random-color-package/dist/bundle.js"></script>
+</head>
+<body>
+    <h1>Random Color Example</h1>
+    <button onclick="setRandomColor()">Change Background Color</button>
+
+    <script>
+        // Assuming the function is exposed globally
+        function setRandomColor() {
+            window.randomColorPackage.changeBackgroundColor();
+        }
+    </script>
+</body>
+</html>
