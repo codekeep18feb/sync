@@ -1,5 +1,5 @@
 {
-    "name": "random-color-package",
+    "name": "my-js-package",
     "version": "1.0.0",
     "description": "A sample package using Webpack and Babel",
     "main": "dist/bundle.js",
