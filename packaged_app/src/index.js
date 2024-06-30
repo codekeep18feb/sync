@@ -23,6 +23,8 @@ export function addHeader() {
 
     const notificationIcon = document.createElement('span');
     notificationIcon.textContent = '🔔';
+    notificationIcon.style.cursor = 'pointer';
+    notificationIcon.addEventListener('click', toggleModal);
     rightPart.appendChild(notificationIcon);
 
     const signupButton = createHeaderButton('Signup', () => {
@@ -38,6 +40,13 @@ export function addHeader() {
     header.appendChild(rightPart);
 
     document.body.prepend(header);
+
+    // Create the modal element
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.id = 'notificationModal';
+    modal.textContent = 'This is the notification modal';
+    document.body.appendChild(modal);
 }
 
 function createHeaderButton(text, onClick) {
@@ -46,9 +55,6 @@ function createHeaderButton(text, onClick) {
     button.addEventListener('click', onClick);
     return button;
 }
-
-// Other functions (routeToChat, routeToLogin, routeToSignup, createForm, createFormInput) remain unchanged
-
 
 // Function to handle routing to /chat and render a box with an orange background
 export function routeToChat() {
@@ -160,4 +166,14 @@ function createFormInput(type, placeholder) {
     input.style.marginBottom = '15px';
     input.required = true; // Example: Marking inputs as required
     return input;
+}
+
+// Function to toggle the modal visibility
+function toggleModal() {
+    const modal = document.getElementById('notificationModal');
+    if (modal.style.display === 'none' || modal.style.display === '') {
+        modal.style.display = 'block';
+    } else {
+        modal.style.display = 'none';
+    }
 }
