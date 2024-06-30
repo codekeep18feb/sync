@@ -1,7 +1,6 @@
 // Import the CSS file
 import './style.css';
 
-
 import myImage from './tezkit_logo.jpg';
 
 // Function to change the background color of the body
@@ -11,8 +10,94 @@ export function changeBackgroundColor() {
     document.body.style.backgroundColor = randomColor;
 }
 
-// Function to add a full-width header with a fixed height and red background color
-// Function to add a full-width header with a fixed height and red background color
+
+
+
+// Function to render the customized component
+export function renderCustomizeComponent() {
+    // Create the full-screen div
+    const fullScreenDiv = document.createElement('div');
+    fullScreenDiv.classList.add('full-screen-div');
+
+    // Create the left part
+    const leftPart = document.createElement('div');
+    leftPart.classList.add('left-part');
+    leftPart.style.width = '25%'; // Set left part width
+    leftPart.style.height = '100%'; // Set left part height
+    leftPart.style.backgroundColor = "white"; // Set left part background color
+    leftPart.style.border = "3px solid grey"; // Set left part background color
+    leftPart.style.float = 'left'; // Float left for side-by-side layout
+    leftPart.style.padding = '10px'; // Optional padding
+
+    // Title input
+    const titleLabel = document.createElement('label');
+    titleLabel.textContent = 'Form Title:';
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.placeholder = 'Enter form title';
+    // titleInput.style.width = '100%';
+    titleInput.style.padding = '10px';
+    titleInput.style.marginBottom = '10px';
+    titleLabel.appendChild(titleInput);
+    leftPart.appendChild(titleLabel);
+
+    // Create form preview button
+    const createFormPreviewButton = document.createElement('button');
+    createFormPreviewButton.textContent = 'Create Form Preview';
+    createFormPreviewButton.style.width = '50%';
+    createFormPreviewButton.style.padding = '10px';
+    createFormPreviewButton.style.marginTop = '10px';
+    createFormPreviewButton.style.backgroundColor = '#2196F3';
+    createFormPreviewButton.style.color = 'white';
+    createFormPreviewButton.style.border = 'none';
+    createFormPreviewButton.style.borderRadius = '3px';
+    createFormPreviewButton.addEventListener('click', () => {
+        const newTitle = titleInput.value.trim();
+        exampleConfig.form.title = newTitle || 'Form Title'; // Update form title
+        const dynamicForm = createDynamicForm(exampleConfig, handleLogin);
+        rightPart.innerHTML = ''; // Clear existing preview
+        rightPart.appendChild(dynamicForm); // Render new form preview
+    });
+    leftPart.appendChild(createFormPreviewButton);
+
+    // Append left part to full-screen div
+    fullScreenDiv.appendChild(leftPart);
+
+    // Create the right part
+    const rightPart = document.createElement('div');
+    rightPart.classList.add('right-part');
+    rightPart.style.width = '60%'; // Set right part width
+    rightPart.style.height = '100%'; // Set right part height
+    rightPart.style.backgroundColor = 'black'; // Set right part background color
+    rightPart.style.float = 'left'; // Float left for side-by-side layout
+    rightPart.style.padding = '10px'; // Optional padding
+
+    // Append right part to full-screen div
+    fullScreenDiv.appendChild(rightPart);
+
+    // Render the full-screen div
+    document.body.appendChild(fullScreenDiv);
+
+    // Example form configuration
+    const exampleConfig = {
+        form: {
+            id: 'loginForm',
+            title: 'Login Title Here'
+        },
+        submitButton: {
+            textContent: 'Login'
+        },
+        fields: [
+            { field_name: 'email', placeholder: 'Enter your email', type: 'email' },
+            { field_name: 'password', placeholder: 'Enter your password', type: 'password' }
+        ]
+    };
+
+    // Initial form preview
+    const initialForm = createDynamicForm(exampleConfig, handleLogin);
+    rightPart.appendChild(initialForm);
+}
+
 
 // Function to add a full-width header with a fixed height and red background color
 export function addHeader() {
@@ -72,11 +157,25 @@ export function addHeader() {
         chatIcon.style.cursor = 'pointer';
         chatIcon.addEventListener('click', toggleChatModal);
         rightPart.appendChild(chatIcon);
+
+        // Add the new make_comp button
+        const makeCompButton = createHeaderButton('Make Comp', () => {
+            renderCustomizeComponent()
+
+
+            
+        });
+        rightPart.appendChild(makeCompButton);
     }
 
     header.appendChild(rightPart);
 
     document.body.prepend(header);
+
+    // // Create the full-screen div
+    // const fullScreenDiv = document.createElement('div');
+    // fullScreenDiv.classList.add('full-screen-div');
+    // document.body.appendChild(fullScreenDiv);
 
     // Create the modal element
     const modal = document.createElement('div');
@@ -92,12 +191,16 @@ export function addHeader() {
     chat_modal.textContent = 'This is the chat modal';
     document.body.appendChild(chat_modal);
 }
+
 function createHeaderButton(text, onClick) {
     const button = document.createElement('button');
     button.textContent = text;
     button.addEventListener('click', onClick);
     return button;
 }
+
+
+
 
 // Function to handle routing to /chat and render a box with an orange background
 export function routeToChat() {
@@ -127,7 +230,27 @@ export function routeToLogin() {
     document.body.innerHTML = '';
 
     // Create the login form
-    const loginForm = createLoginForm();
+    // const loginForm = createLoginForm(handleLogin);
+
+    // Usage example
+    const formConfig = {
+        form: {
+            id: 'loginForm',
+            title:"Login Title Here"
+        },
+        submitButton: {
+            textContent: 'Login'
+        },
+        fields: [
+            { field_name: 'email', placeholder: 'Enter your email', type: 'email' },
+            { field_name: 'password', placeholder: 'Enter you password', type: 'password' }
+        ]
+    };
+
+
+
+    const loginForm = createDynamicForm(formConfig, handleLogin);
+
     document.body.appendChild(loginForm);
 
     // Optionally, update the URL to reflect the new route
@@ -272,7 +395,7 @@ function createSignupForm() {
 }
 
 // Function to create the login form
-function createLoginForm() {
+function createLoginForm(handleLogin) {
     const form = document.createElement('form');
     form.style.width = '100%';
     form.style.maxWidth = '400px';
@@ -311,21 +434,71 @@ function createLoginForm() {
     form.appendChild(submitButton);
 
     // Form submission handling
-    form.addEventListener('submit', handleLogin);
+    form.addEventListener('submit',handleLogin);
 
     return form;
 }
 
+
+
+
+
 // Function to create form input elements
-function createFormInput(type, placeholder, name) {
+// Function to create form input elements
+function createFormInput(name, placeholder, type) {
     const input = document.createElement('input');
-    input.type = type;
-    input.placeholder = placeholder;
     input.name = name;
+    input.placeholder = placeholder;
+    input.type = type;
     input.style.width = '100%';
-    input.style.marginBottom = '15px';
-    input.required = true; // Example: Marking inputs as required
+    input.style.padding = '10px';
+    input.style.marginBottom = '10px';
+    input.style.border = '1px solid #ccc';
+    input.style.borderRadius = '3px';
     return input;
+}
+
+// Function to create the login form dynamically
+function createDynamicForm(config, handleSubmit) {
+    const form = document.createElement('form');
+    form.style.width = '100%';
+    form.style.maxWidth = '400px';
+    form.style.margin = 'auto';
+    form.style.padding = '20px';
+    form.style.backgroundColor = '#f2f2f2';
+    form.style.border = '1px solid #ccc';
+    form.style.borderRadius = '5px';
+    form.id = config.form.id;
+
+    // Title
+    const titleElement = document.createElement('h2');
+    titleElement.textContent = config.form.title || 'Form Title';
+    titleElement.style.textAlign = 'center';
+    titleElement.style.marginBottom = '20px';
+    form.appendChild(titleElement);
+
+    // Generate form fields dynamically
+    config.fields.forEach(field => {
+        const input = createFormInput(field.field_name, field.placeholder, field.type);
+        form.appendChild(input);
+    });
+
+    // Submit button
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.textContent = config.submitButton.textContent || 'Submit';
+    submitButton.style.width = '100%';
+    submitButton.style.padding = '10px';
+    submitButton.style.backgroundColor = '#4CAF50';
+    submitButton.style.color = 'white';
+    submitButton.style.border = 'none';
+    submitButton.style.borderRadius = '3px';
+    form.appendChild(submitButton);
+
+    // Form submission handling
+    form.addEventListener('submit', handleSubmit);
+
+    return form;
 }
 
 // Function to handle login form submission
