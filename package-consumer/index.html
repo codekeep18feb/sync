@@ -7,16 +7,19 @@
     <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
 
     <script src="node_modules/my-js-package/dist/bundle.js"></script>
-</head>
-<body>
-    <h1>Random Color Example</h1>
-    <button onclick="setRandomColor()">Change Background Color</button>
 
     <script>
-        // Assuming the function is exposed globally
-        function setRandomColor() {
+        // Wait for the document to be fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            // Execute your function once the document is loaded
             window.randomColorPackage.addHeader();
-        }
+        });
     </script>
+</head>
+<body>
+    <h1>Example site using Tezkit vanila.js package!</h1>
+    <!-- <button onclick="setRandomColor()">Change Background Color</button> -->
+
+
 </body>
 </html>

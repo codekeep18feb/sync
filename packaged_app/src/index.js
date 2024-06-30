@@ -11,39 +11,51 @@ export function changeBackgroundColor() {
 export function addHeader() {
     const header = document.createElement('header');
     header.style.width = '100%';
-    header.style.height = '200px';
+    header.style.height = '80px';
+    header.style.borderRadius = '10px';
     header.style.backgroundColor = 'red';
     header.style.color = 'white';
     header.style.textAlign = 'center';
-    header.style.lineHeight = '200px';
     header.style.display = 'flex'; // Display header content in a flex container
     header.style.justifyContent = 'space-between'; // Space items evenly along the main axis
     header.style.alignItems = 'center'; // Center items along the cross axis
-    header.innerText = 'This is a header';
+
+    // Left part (Tezkit)
+    const leftPart = document.createElement('div');
+    leftPart.style.width = '50%';
+    leftPart.style.textAlign = 'left';
+    leftPart.innerText = 'Tezkit';
+    header.appendChild(leftPart);
+
+    // Right part (Notification icon, Signup, Login buttons)
+    const rightPart = document.createElement('div');
+    rightPart.style.display = 'flex';
+    rightPart.style.justifyContent = 'flex-end';
+    rightPart.style.width = '50%';
 
     // Notification icon
-    const notificationIcon = document.createElement('span');
-    notificationIcon.textContent = '🔔';
-    notificationIcon.style.cursor = 'pointer';
-    notificationIcon.style.fontSize = '24px';
-    notificationIcon.style.color = 'white';
-    notificationIcon.addEventListener('click', () => {
-        // Handle notification icon click (optional)
-        // For now, it does nothing
-    });
-    header.appendChild(notificationIcon);
+ 
 
     // Signup menu button
     const signupButton = createHeaderButton('Signup', () => {
         routeToSignup();
     });
-    header.appendChild(signupButton);
+    rightPart.appendChild(signupButton);
 
     // Login menu button
     const loginButton = createHeaderButton('Login', () => {
         routeToLogin();
     });
-    header.appendChild(loginButton);
+    rightPart.appendChild(loginButton);
+
+    const notificationIcon = document.createElement('span');
+    notificationIcon.textContent = '🔔';
+    notificationIcon.style.cursor = 'pointer';
+    notificationIcon.style.fontSize = '24px';
+    notificationIcon.style.marginRight = '10px';
+    rightPart.appendChild(notificationIcon);
+    
+    header.appendChild(rightPart);
 
     // Append header to the body
     document.body.prepend(header);
@@ -56,6 +68,7 @@ function createHeaderButton(text, onClick) {
     button.style.cursor = 'pointer';
     button.style.color = 'white';
     button.style.padding = '10px';
+    button.style.margin = '10px';
     button.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
     button.style.borderRadius = '5px';
     button.style.border = 'none';
