@@ -1,6 +1,9 @@
 // Import the CSS file
 import './style.css';
 
+
+import myImage from './tezkit_logo.jpg';
+
 // Function to change the background color of the body
 export function changeBackgroundColor() {
     const colors = ['#FF5733', '#33FF57', '#5733FF', '#33B5E5', '#FFC300'];
@@ -9,13 +12,30 @@ export function changeBackgroundColor() {
 }
 
 // Function to add a full-width header with a fixed height and red background color
+// Function to add a full-width header with a fixed height and red background color
+
+// Function to add a full-width header with a fixed height and red background color
 export function addHeader() {
     const header = document.createElement('header');
     header.classList.add('header');
 
     const leftPart = document.createElement('div');
     leftPart.classList.add('left');
-    leftPart.textContent = 'Tezkit';
+
+    // Create an img element for the logo
+    const logo = document.createElement('img');
+    logo.src = myImage;
+    logo.alt = 'Tezkit Logo';
+    logo.style.height = '50px'; // Adjust the height as needed
+    logo.style.marginRight = '10px'; // Optional: Add some space between the logo and text
+    leftPart.appendChild(logo);
+
+    const logoText = document.createElement('div');
+    logoText.textContent = 'Tezkit';
+    logoText.style.display = 'inline-block'; // To align it horizontally with the image
+    logoText.style.verticalAlign = 'middle'; // To align it vertically with the image
+    leftPart.appendChild(logoText);
+
     header.appendChild(leftPart);
 
     const rightPart = document.createElement('div');
@@ -27,41 +47,31 @@ export function addHeader() {
     notificationIcon.addEventListener('click', toggleModal);
     rightPart.appendChild(notificationIcon);
 
-    const signupButton = createHeaderButton('Signup', () => {
-        toggleSignup();
-    });
-    rightPart.appendChild(signupButton);
-
-    const token = localStorage.getItem('tezkit_token')
-    if (!token){
+    const token = localStorage.getItem('tezkit_token');
+    if (!token) {
         const loginButton = createHeaderButton('Login', () => {
             routeToLogin();
         });
         rightPart.appendChild(loginButton);
-    
 
-    }
-    else{
-
+        const signupButton = createHeaderButton('Signup', () => {
+            toggleSignup();
+        });
+        rightPart.appendChild(signupButton);
+    } else {
         const logoutButton = createHeaderButton('Logout', () => {
             // Logout here
-            localStorage.removeItem('tezkit_token')
-                
+            localStorage.removeItem('tezkit_token');
             // Reload the page
             window.location.reload();
-
         });
         rightPart.appendChild(logoutButton);
-
 
         const chatIcon = document.createElement('span');
         chatIcon.textContent = '💬';
         chatIcon.style.cursor = 'pointer';
         chatIcon.addEventListener('click', toggleChatModal);
         rightPart.appendChild(chatIcon);
-
-        
-
     }
 
     header.appendChild(rightPart);
@@ -75,15 +85,13 @@ export function addHeader() {
     modal.textContent = 'This is the notification modal';
     document.body.appendChild(modal);
 
-
     // Create the chat_modal element
     const chat_modal = document.createElement('div');
     chat_modal.classList.add('chat_modal');
     chat_modal.id = 'chatModal';
-    chat_modal.textContent = 'This is the chat_modal modal';
+    chat_modal.textContent = 'This is the chat modal';
     document.body.appendChild(chat_modal);
 }
-
 function createHeaderButton(text, onClick) {
     const button = document.createElement('button');
     button.textContent = text;
