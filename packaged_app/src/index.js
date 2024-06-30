@@ -12,7 +12,7 @@ export function addHeader() {
     const header = document.createElement('header');
     header.style.width = '100%';
     header.style.height = '200px';
-    header.style.backgroundColor = 'orange';
+    header.style.backgroundColor = 'red';
     header.style.color = 'white';
     header.style.textAlign = 'center';
     header.style.lineHeight = '200px';
