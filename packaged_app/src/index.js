@@ -1,4 +1,5 @@
-// src/index.js
+// Import the CSS file
+import './style.css';
 
 // Function to change the background color of the body
 export function changeBackgroundColor() {
@@ -10,71 +11,44 @@ export function changeBackgroundColor() {
 // Function to add a full-width header with a fixed height and red background color
 export function addHeader() {
     const header = document.createElement('header');
-    header.style.width = '100%';
-    header.style.height = '80px';
-    header.style.borderRadius = '10px';
-    header.style.backgroundColor = 'red';
-    header.style.color = 'white';
-    header.style.textAlign = 'center';
-    header.style.display = 'flex'; // Display header content in a flex container
-    header.style.justifyContent = 'space-between'; // Space items evenly along the main axis
-    header.style.alignItems = 'center'; // Center items along the cross axis
+    header.classList.add('header');
 
-    // Left part (Tezkit)
     const leftPart = document.createElement('div');
-    leftPart.style.width = '50%';
-    leftPart.style.textAlign = 'left';
-    leftPart.innerText = 'Tezkit';
+    leftPart.classList.add('left');
+    leftPart.textContent = 'Tezkit';
     header.appendChild(leftPart);
 
-    // Right part (Notification icon, Signup, Login buttons)
     const rightPart = document.createElement('div');
-    rightPart.style.display = 'flex';
-    rightPart.style.justifyContent = 'flex-end';
-    rightPart.style.width = '50%';
+    rightPart.classList.add('right');
 
-    // Notification icon
- 
+    const notificationIcon = document.createElement('span');
+    notificationIcon.textContent = '🔔';
+    rightPart.appendChild(notificationIcon);
 
-    // Signup menu button
     const signupButton = createHeaderButton('Signup', () => {
         routeToSignup();
     });
     rightPart.appendChild(signupButton);
 
-    // Login menu button
     const loginButton = createHeaderButton('Login', () => {
         routeToLogin();
     });
     rightPart.appendChild(loginButton);
 
-    const notificationIcon = document.createElement('span');
-    notificationIcon.textContent = '🔔';
-    notificationIcon.style.cursor = 'pointer';
-    notificationIcon.style.fontSize = '24px';
-    notificationIcon.style.marginRight = '10px';
-    rightPart.appendChild(notificationIcon);
-    
     header.appendChild(rightPart);
 
-    // Append header to the body
     document.body.prepend(header);
 }
 
-// Function to create header buttons
 function createHeaderButton(text, onClick) {
     const button = document.createElement('button');
     button.textContent = text;
-    button.style.cursor = 'pointer';
-    button.style.color = 'white';
-    button.style.padding = '10px';
-    button.style.margin = '10px';
-    button.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    button.style.borderRadius = '5px';
-    button.style.border = 'none';
     button.addEventListener('click', onClick);
     return button;
 }
+
+// Other functions (routeToChat, routeToLogin, routeToSignup, createForm, createFormInput) remain unchanged
+
 
 // Function to handle routing to /chat and render a box with an orange background
 export function routeToChat() {
