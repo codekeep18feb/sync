@@ -35,9 +35,25 @@ body, html {
     display: none;
     position: absolute;
     top: 60px; /* Adjust based on the header height */
-    right: 0;
+    right: 0; /* Adjust based on the header height */
     width: 200px;
     height: calc(90% - 60px); /* Adjust based on the header height */
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+}
+
+
+/* Modal styling */
+.chat_modal {
+    display: none;
+    position: absolute;
+    bottom: 10px; /* Adjust based on the header height */
+    right: 100px; /* Adjust based on the header height */
+    width: 400px;
+    height: calc(60% - 60px); /* Adjust based on the header height */
     background-color: #ffffff;
     border: 1px solid #ccc;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
